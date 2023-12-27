@@ -10,7 +10,7 @@ export function MovieList({ movieList }: { movieList: MovieListProps[] | undefin
             return (
                 <button
                     key={movie.id}
-                    className="p-3 border border-zinc-500 transition-all ease duration-200 rounded-md text-white flex flex-col gap-2 opacity-70 hover:opacity-100"
+                    className="p-3 border border-zinc-500 transition-all ease duration-200 rounded-md text-white flex flex-col gap-2 opacity-70 hover:opacity-100 hover:scale-105"
                 >
                     <img className="h-96 w-full object-cover self-center" src={movieImage} />
                     <p>{movie.title}</p>

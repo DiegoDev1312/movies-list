@@ -16,13 +16,13 @@ export function Pagination({ movieInfo }: PaginationProps) {
                 breakLabel="..."
                 nextLabel="Próxima"
                 onPageChange={(e) => pageInfo?.changePage(e.selected + 1)}
-                pageRangeDisplayed={2}
-                pageCount={movieInfo.total_pages}
+                pageRangeDisplayed={3}
+                pageCount={movieInfo.total_pages > 500 ? 500 : movieInfo.total_pages}
                 previousLabel="Anterior"
                 className="flex gap-2 flex-wrap items-center"
-                pageClassName='flex items-center justify-center p-3 border border-zinc-500 rounded-md'
+                pageClassName='flex items-center justify-center hover:scale-110 transition-all ease duration-100 p-3 border border-zinc-500 rounded-md'
                 renderOnZeroPageCount={null}
-                activeClassName='flex items-center justify-center p-4 border border-zinc-500 rounded-md'
+                activeClassName='flex items-center justify-center scale-110 border border-zinc-500 rounded-md'
             />
         </div>
     );
