@@ -50,6 +50,19 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function renderMovieArea() {
+    if (!movieInfo.results.length) {
+      return <p>Não há filmes!</p>
+    }
+
+    return (
+      <>
+        <MovieList movieList={movieInfo.results} />
+        <Pagination movieInfo={movieInfo} />
+      </>
+    )
+  }
+
   function renderList() {
     if (isLoading) {
       return <Loading />
@@ -60,8 +73,7 @@ export default function Home() {
         <Search setSearchTxt={setSearchTxt} />
         <Filter setFilterValue={setFilterType} />
         {paginationInfo?.searchLoading && <SearchLoading />}
-        <MovieList movieList={movieInfo.results} />
-        <Pagination movieInfo={movieInfo} />
+        {renderMovieArea()}
       </>
     )
   }
