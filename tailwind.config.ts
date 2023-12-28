@@ -8,6 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+      pulseLoading: {
+          '0%': { transform: 'scale(1)' },
+          '15%': { transform: 'scale(1.05)' },
+          '30%': { transform: 'scale(1.10)' },
+          '50%': { transform: 'scale(1.15)' },
+          '75%': { transform: 'scale(1.20)' },
+          '100%': { transform: 'scale(1.30)' },
+        }
+      },
+      animation: {
+        pulseLoading: 'pulseLoading 2s infinite',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

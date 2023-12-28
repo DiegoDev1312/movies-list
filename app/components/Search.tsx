@@ -1,16 +1,29 @@
+import { debounce } from 'lodash';
+import { usePagination } from '../contexts/PaginationContext';
+
 type SearchProps = {
     setSearchTxt: (txt: string) => void;
 }
 
 export function Search({ setSearchTxt }: SearchProps) {
-    function changeTxt(event: React.ChangeEvent<HTMLInputElement>) {
-        setSearchTxt(event.target.value);
+    const paginationInfo = usePagination();
 
+    function searchTxt(event: React.ChangeEvent<HTMLInputElement>) {
+        paginationInfo?.changeSearchLoading(true);
+        debounceChangeTxt(event.target.value);
     }
 
+    const debounceChangeTxt =
+        debounce((text: string) => {
+            setSearchTxt(text);
+            paginationInfo?.changePage(1);
+        }, 1000);
+
     return (
-        <div className="border border-white rounded-md w-full mb-7 text-white">
-            <input onChange={changeTxt} className="w-full h-10 outline-none pl-3 placeholder:text-white" placeholder="Digite o nome do filme..." />
-        </div>
+        <input
+            onChange={searchTxt}
+            className="rounded-md h-10 text-white dark:text-white bg-zinc-600 outline-none pl-3 placeholder:text-white w-full"
+            placeholder="Digite o nome do filme..."
+        />
     );
 }

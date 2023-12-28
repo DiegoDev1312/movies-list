@@ -6,7 +6,6 @@ export function MovieList({ movieList }: { movieList: MovieListProps[] | undefin
     function renderMovieList() {
         return movieList?.map((movie) => {
             const movieImage = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-
             return (
                 <button
                     key={movie.id}
@@ -28,5 +27,5 @@ export function MovieList({ movieList }: { movieList: MovieListProps[] | undefin
         <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 w-full">
             {renderMovieList()}
         </div>
-    )
+    );
 }
