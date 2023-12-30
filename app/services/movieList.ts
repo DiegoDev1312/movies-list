@@ -23,3 +23,15 @@ export async function searchMovie(page: number = 1, searchTxt?: string) {
 
     return response.data;
 }
+
+
+export async function movieDetails(id: string) {
+    const response = await api.get(`3/movie/${id}`, {
+        params: {
+            api_key: 'cfea2ebfa1332b46de22d3e69bc6c1df',
+        },
+    });
+
+    return response.data;
+}
+

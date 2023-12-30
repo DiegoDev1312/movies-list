@@ -52,7 +52,7 @@ export default function Home() {
 
   function renderMovieArea() {
     if (!movieInfo.results.length) {
-      return <p>Não há filmes!</p>
+      return <p className="text-white text-xl animate-bounce sm:text-3xl">Movie not found!!</p>
     }
 
     return (
@@ -60,7 +60,7 @@ export default function Home() {
         <MovieList movieList={movieInfo.results} />
         <Pagination movieInfo={movieInfo} />
       </>
-    )
+    );
   }
 
   function renderList() {
