@@ -13,7 +13,7 @@ export type DetailsType = {
     poster_path: string;
     revenue: number;
     budget: number;
-    production_companies: Array<ProductionCompany>;
+    production_companies: Array<ProductionCompanyType>;
     title: string;
     genres: Array<GenreType>;
     runtime: number;
