@@ -1,24 +1,35 @@
 import { usePagination } from "../contexts/PaginationContext";
+import { FilterType } from "../types/filterType";
+import { filterOptions } from "../utils/constants";
 
-type FilterType = {
-    setFilterValue: (filterValue: string) => void; 
-}
-
-export function Filter({ setFilterValue }: FilterType) {
+export function Filter() {
     const paginationInfo = usePagination();
-
+    
     function changeOption(event: React.ChangeEvent<HTMLSelectElement>) {
+        const selectedValue: FilterType = event.target.value as FilterType;
         paginationInfo?.changeSearchLoading(true);
-        setFilterValue(event.target.value);
+        paginationInfo?.changeFilterType(selectedValue);
         paginationInfo?.changePage(1);
     }
 
+    function renderOptions() {
+        return filterOptions.map((option) => {
+            return (
+                <option value={option.type} key={option.id}>
+                    {option.name}
+                </option>
+            );
+        });
+    }
+
     return (
-        <select name="select" className='self-start w-full h-10 my-4 px-3 mb-7 outline-none rounded-md bg-zinc-600 text-white sm:w-64' onChange={changeOption}>
-            <option value="top_rated" selected>Melhores avaliados</option>
-            <option value="popular">Populares</option>
-            <option value="now_playing">Em cartaz</option>
-            <option value="upcoming">À serem lançado</option>
+        <select
+            defaultValue={paginationInfo?.filterType}
+            name="select"
+            className='self-start w-full h-10 my-4 px-3 mb-7 outline-none rounded-md bg-zinc-600 text-white sm:w-64'
+            onChange={changeOption}
+        >
+            {renderOptions()}
         </select>
     );
 }

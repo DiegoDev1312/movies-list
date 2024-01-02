@@ -9,11 +9,13 @@ type PaginationProps = {
 
 export function Pagination({ movieInfo }: PaginationProps) {
     const pageInfo = usePagination();
+    const initialPage = pageInfo?.page ? pageInfo?.page - 1 : 1;
 
     return (
         <div className="flex gap-2 mt-6">
             <ReactPaginate
                 breakLabel="..."
+                initialPage={initialPage}
                 nextLabel="Próxima"
                 onPageChange={(e) => pageInfo?.changePage(e.selected + 1)}
                 pageRangeDisplayed={1}

@@ -1,6 +1,7 @@
+import { FilterType } from "../types/filterType";
 import { api } from "../utils/api";
 
-export async function movies(page: number = 1, filterType: string) {
+export async function movies(page: number = 1, filterType: FilterType = 'top_rated') {
     const response = await api.get(`3/movie/${filterType}`, {
         params: {
             page,

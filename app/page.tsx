@@ -22,7 +22,6 @@ export default function Home() {
   const [movieInfo, setMovieInfo] = useState<MovieResponseProps>(initialMovieInfo);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTxt, setSearchTxt] = useState('');
-  const [filterType, setFilterType] = useState('top_rated');
 
   useEffect(() => {
     if (searchTxt) {
@@ -31,10 +30,10 @@ export default function Home() {
       getMovies();
       goPageToTop();
     }
-  }, [paginationInfo?.page, searchTxt, filterType]);
+  }, [paginationInfo?.page, searchTxt, paginationInfo?.filterType]);
 
   async function getMovies() {
-    const allMovies: MovieResponseProps = await movies(paginationInfo?.page, filterType);
+    const allMovies: MovieResponseProps = await movies(paginationInfo?.page, paginationInfo?.filterType);
     setMovieInfo(allMovies);
     setIsLoading(false);
     paginationInfo?.changeSearchLoading(false);
@@ -71,7 +70,7 @@ export default function Home() {
     return (
       <>
         <Search setSearchTxt={setSearchTxt} />
-        <Filter setFilterValue={setFilterType} />
+        <Filter />
         {paginationInfo?.searchLoading && <SearchLoading />}
         {renderMovieArea()}
       </>

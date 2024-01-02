@@ -5,6 +5,6 @@ export function convertCurrency(currency: number) {
     }) : '-';
 }
 
-export function apiImage(url: string) {
-    return `https://image.tmdb.org/t/p/w500/${url}`;
+export function apiImage(url: string) {    
+    return url ? `https://image.tmdb.org/t/p/w500/${url}` : '/void-image.svg';
 }

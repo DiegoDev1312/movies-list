@@ -18,8 +18,6 @@ function MovieDetails() {
     const [details, setDetails] = useState<DetailsType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    console.log(details);
-
     useEffect(() => {
         getMovieDetails();
     }, []);
@@ -39,26 +37,20 @@ function MovieDetails() {
         );
     }
 
-    function renderProductionCompanies() {
-
-    }
-
-    function renderGenres() {
-
-    }
+    console.log('details', details);
 
     function renderDetails() {
         if (isLoading) {
             return <Loading />
         }
-
+        
         return (
             <div className='w-11/12 items-start flex justify-center flex-col xl:w-2/4'>
                 <button className='self-start' onClick={() => router.back()}>
                     <FiArrowLeft color="#FFFFFF" className='w-8 h-8 md:w-12 md:h-12' />
                 </button>
-                <div className='gap-4 mt-4 justify-center w-full md:flex'>
-                    <img className='self-center h-72 object-cover' src={apiImage(details?.poster_path || '')} />
+                <div className='gap-4 mt-4 justify-center items-center w-full md:flex'>
+                    <img className='self-center h-72 object-contain w-full sm:w-auto' src={apiImage(details?.poster_path || '')} />
                     <div className='flex-1'>
                         {renderInfo('', `${details?.title}`, 'text-yellow-600')}
                         {renderInfo('', `${details?.overview}`, '')}
@@ -67,13 +59,13 @@ function MovieDetails() {
                 <div className='flex gap-4 mt-3 flex-wrap'>
                     <MovieGenre genreList={details?.genres} /> 
                 </div>
-                <div className='flex items-start justify-start flex-col'>
+                <div className='flex items-start justify-start flex-col w-full'>
                     {renderInfo('Budget:', `${convertCurrency(details?.budget || 0)}`)}
                     {renderInfo('Revenue:', `${convertCurrency(details?.revenue || 0)}`)}
-                    {renderInfo('Vote average:', `${details?.vote_average.toFixed(1)}`)}
-                    {renderInfo('Runtime:', `${details?.runtime} minutes`)}
+                    {renderInfo('Vote average:', details?.vote_average ? `${details?.vote_average.toFixed(1)}` : '-')}
+                    {renderInfo('Runtime:', details?.runtime ? `${details?.runtime} minutes` : '-')}
                     {renderInfo('Production Companies:', '')}
-                    <div className='grid gap-3 grid-col-[repeat(auto-fill,minmax(250px, 1fr))]'>
+                    <div className='w-full grid gap-3 grid-cols-[repeat(auto-fill,minmax(150px,1fr))]'>
                         <ProductionCompanies productionCompanyList={details?.production_companies} />
                     </div> 
                 </div>
@@ -82,7 +74,7 @@ function MovieDetails() {
     }
 
     return (
-        <div className='bg-zinc-900 flex items-center min-h-screen justify-center flex-col py-5'>
+        <div className='bg-zinc-900 flex items-center min-h-screen justify-center flex-col py-2'>
             {renderDetails()}
         </div>
     );
