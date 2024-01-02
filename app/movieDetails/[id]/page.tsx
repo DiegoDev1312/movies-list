@@ -37,8 +37,6 @@ function MovieDetails() {
         );
     }
 
-    console.log('details', details);
-
     function renderDetails() {
         if (isLoading) {
             return <Loading />

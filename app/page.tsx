@@ -5,7 +5,7 @@ import { movies, searchMovie } from "./services/movieList";
 import { MovieList } from "./components/MovieList";
 import { MovieResponseProps } from "./types/movieResponseType";
 import { Pagination } from "./components/Pagination";
-import { usePagination } from "./contexts/PaginationContext";
+import { useMovie } from "./contexts/MovieContext";
 import { Loading } from "./components/Loading";
 import { Search } from "./components/Search";
 import { SearchLoading } from "./components/SearchLoading";
@@ -17,32 +17,31 @@ export default function Home() {
     page: 0,
     total_pages: 0,
   };
-
-  const paginationInfo = usePagination();
+  const movieUtils = useMovie();
+  
   const [movieInfo, setMovieInfo] = useState<MovieResponseProps>(initialMovieInfo);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTxt, setSearchTxt] = useState('');
 
   useEffect(() => {
-    if (searchTxt) {
+    if (movieUtils?.searchTxt) {
       getSearchMovies();
     } else {
       getMovies();
       goPageToTop();
     }
-  }, [paginationInfo?.page, searchTxt, paginationInfo?.filterType]);
+  }, [movieUtils?.page, movieUtils?.searchTxt, movieUtils?.filterType]);
 
   async function getMovies() {
-    const allMovies: MovieResponseProps = await movies(paginationInfo?.page, paginationInfo?.filterType);
+    const allMovies: MovieResponseProps = await movies(movieUtils?.page, movieUtils?.filterType);
     setMovieInfo(allMovies);
     setIsLoading(false);
-    paginationInfo?.changeSearchLoading(false);
+    movieUtils?.changeSearchLoading(false);
   }
   
   async function getSearchMovies() {
-    const allSearchMovies: MovieResponseProps = await searchMovie(1, searchTxt);
+    const allSearchMovies: MovieResponseProps = await searchMovie(1, movieUtils?.searchTxt);
     setMovieInfo(allSearchMovies);
-    paginationInfo?.changeSearchLoading(false);
+    movieUtils?.changeSearchLoading(false);
   }
 
   function goPageToTop() {
@@ -51,27 +50,27 @@ export default function Home() {
 
   function renderMovieArea() {
     if (!movieInfo.results.length) {
-      return <p className="text-white text-xl animate-bounce sm:text-3xl">Movie not found!!</p>
+      return <p className="text-white text-xl animate-bounce sm:text-3xl mt-4">Movie not found!!</p>
     }
 
     return (
       <>
         <MovieList movieList={movieInfo.results} />
-        <Pagination movieInfo={movieInfo} />
+        <Pagination movie={movieInfo} />
       </>
     );
   }
 
   function renderList() {
-    if (isLoading) {
+    if (isLoading && !movieUtils?.searchTxt) {
       return <Loading />
     }
 
     return (
       <>
-        <Search setSearchTxt={setSearchTxt} />
+        <Search />
         <Filter />
-        {paginationInfo?.searchLoading && <SearchLoading />}
+        {movieUtils?.searchLoading && <SearchLoading />}
         {renderMovieArea()}
       </>
     )

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { PaginationProvider } from './contexts/PaginationContext'
+import { MovieProvider } from './contexts/MovieContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" className='bg-white'>
       <body className='bg-white'>
-        <PaginationProvider>
+        <MovieProvider>
           {children}
-        </PaginationProvider>
+        </MovieProvider>
       </body>
     </html>
   )
