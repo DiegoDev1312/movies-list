@@ -1,28 +1,28 @@
 import ReactPaginate from 'react-paginate';
 
-import { useMovie } from "../contexts/MovieContext";
 import { MovieResponseProps } from '../types/movieResponseType';
+import { usePagination } from '../contexts/PaginationContext';
 
 type PaginationProps = {
     movie: MovieResponseProps;
 }
 
 export function Pagination({ movie }: PaginationProps) {
-    const movieUtils = useMovie();
+    const paginationUtils = usePagination();
     const initialPage = movie?.page ? movie?.page - 1 : 1;
 
     const changePagination = (e: { selected: number }) => {
-        movieUtils?.changePage(e.selected + 1);
+        paginationUtils?.changePage(e.selected + 1);
     };
 
     return (
-        <div className="flex gap-2 mt-6">
+        <div className="flex gap-2 mt-6 pb-2">
             <ReactPaginate
                 breakLabel="..."
                 initialPage={initialPage}
                 nextLabel="Próxima"
                 onPageChange={changePagination}
-                pageRangeDisplayed={1}
+                pageRangeDisplayed={2}
                 pageCount={movie.total_pages > 500 ? 500 : movie.total_pages}
                 previousLabel="Anterior"
                 className="flex text-white gap-2 flex-wrap items-center"

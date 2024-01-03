@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { movies, searchMovie } from "./services/movieList";
 import { MovieList } from "./components/MovieList";
 import { MovieResponseProps } from "./types/movieResponseType";
 import { Pagination } from "./components/Pagination";
-import { useMovie } from "./contexts/MovieContext";
 import { Loading } from "./components/Loading";
 import { Search } from "./components/Search";
 import { SearchLoading } from "./components/SearchLoading";
 import { Filter } from "./components/Filter";
+import { Hearder } from "./components/Header";
+import { usePagination } from "./contexts/PaginationContext";
 
 export default function Home() {
   const initialMovieInfo = {
@@ -17,31 +19,26 @@ export default function Home() {
     page: 0,
     total_pages: 0,
   };
-  const movieUtils = useMovie();
+  const paginationUtils = usePagination();
   
   const [movieInfo, setMovieInfo] = useState<MovieResponseProps>(initialMovieInfo);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (movieUtils?.searchTxt) {
-      getSearchMovies();
-    } else {
-      getMovies();
-      goPageToTop();
-    }
-  }, [movieUtils?.page, movieUtils?.searchTxt, movieUtils?.filterType]);
+    paginationUtils?.searchTxt ? getSearchMovies() : getMovies();
+    goPageToTop();
+  }, [paginationUtils?.page, paginationUtils?.searchTxt, paginationUtils?.filterType]);
 
   async function getMovies() {
-    const allMovies: MovieResponseProps = await movies(movieUtils?.page, movieUtils?.filterType);
+    const allMovies: MovieResponseProps = await movies(paginationUtils?.page, paginationUtils?.filterType);
     setMovieInfo(allMovies);
-    setIsLoading(false);
-    movieUtils?.changeSearchLoading(false);
+    paginationUtils?.changeLoading(false);
+    paginationUtils?.changeSearchLoading(false);
   }
   
   async function getSearchMovies() {
-    const allSearchMovies: MovieResponseProps = await searchMovie(1, movieUtils?.searchTxt);
+    const allSearchMovies: MovieResponseProps = await searchMovie(paginationUtils?.page, paginationUtils?.searchTxt);
     setMovieInfo(allSearchMovies);
-    movieUtils?.changeSearchLoading(false);
+    paginationUtils?.changeSearchLoading(false);
   }
 
   function goPageToTop() {
@@ -49,6 +46,10 @@ export default function Home() {
   }
 
   function renderMovieArea() {
+    if (paginationUtils?.isLoading && !paginationUtils?.searchTxt) {
+      return <Loading />
+    }
+
     if (!movieInfo.results.length) {
       return <p className="text-white text-xl animate-bounce sm:text-3xl mt-4">Movie not found!!</p>
     }
@@ -62,22 +63,19 @@ export default function Home() {
   }
 
   function renderList() {
-    if (isLoading && !movieUtils?.searchTxt) {
-      return <Loading />
-    }
-
     return (
       <>
         <Search />
         <Filter />
-        {movieUtils?.searchLoading && <SearchLoading />}
+        {paginationUtils?.searchLoading && <SearchLoading />}
         {renderMovieArea()}
       </>
     )
   }
 
   return (
-    <main className="bg-zinc-900 flex min-h-screen flex-col items-center px-2 transition-all ease duration-150 py-8 sm:px-8">
+    <main className="bg-zinc-900 flex min-h-screen flex-col items-center px-2 transition-all ease duration-150 sm:px-8">
+      <Hearder />
       {renderList()}
     </main>
   )

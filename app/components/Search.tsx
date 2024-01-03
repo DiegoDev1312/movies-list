@@ -1,14 +1,14 @@
-import { useMovie } from '../contexts/MovieContext';
+import { usePagination } from '../contexts/PaginationContext';
 
 export function Search() {
-    const movieUtils = useMovie();
+    const paginationUtils = usePagination();
 
     return (
         <input
-            onChange={movieUtils?.changeSearch}
-            className="rounded-md h-10 text-white dark:text-white bg-zinc-600 outline-none pl-3 placeholder:text-white w-full"
-            placeholder="Digite o nome do filme..."
-            defaultValue={movieUtils?.searchTxt}
+            onChange={paginationUtils?.changeSearch}
+            className="rounded-md h-10 text-white dark:text-white bg-zinc-600 outline-none pl-3 placeholder:text-white w-full mt-8"
+            placeholder="Enter the movie name..."
+            defaultValue={paginationUtils?.searchTxt}
         />
     );
 }

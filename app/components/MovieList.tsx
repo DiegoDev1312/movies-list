@@ -7,12 +7,14 @@ import { useMovie } from "../contexts/MovieContext";
 
 export function MovieList({ movieList }: { movieList: MovieListProps[] | undefined }) {
     const movieUtils = useMovie();
-    function renderFavoriteHeart(movieId: number) {
-        const coditionMarkedHeart = movieUtils?.favoriteList?.includes(movieId);
+
+    function renderFavoriteHeart(movie: MovieListProps) {
+        const movieIds = movieUtils?.favoriteList.map((movie) => movie.id);
+        const coditionMarkedHeart = movieIds?.includes(movie.id);
 
         const handleFavoritePress = (event: React.MouseEvent<HTMLElement>) => {
             event.preventDefault();
-            movieUtils?.changeFavoriteList(movieId);
+            movieUtils?.changeFavoriteList(movie);
         };
 
         return (
@@ -39,16 +41,16 @@ export function MovieList({ movieList }: { movieList: MovieListProps[] | undefin
                     <p>{movie.release_date}</p>
                     <div className="flex items-center gap-2">
                         <FaStar color='#A57603' />
-                        <p>{movie.vote_average.toFixed(2)}</p>
+                        <p>{movie.vote_average ? movie.vote_average.toFixed(2) : '-'}</p>
                     </div>
-                    {renderFavoriteHeart(movie.id)}
+                    {renderFavoriteHeart(movie)}
                 </Link>
             );
         });
     }
 
     return (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 w-full">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 w-full mt-7">
             {renderMovieList()}
         </div>
     );

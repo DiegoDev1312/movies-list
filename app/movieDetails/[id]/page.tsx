@@ -5,15 +5,13 @@ import { DetailsType } from '@/app/types/detailsType';
 import { apiImage, convertCurrency } from '@/app/utils/functions';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FiArrowLeft } from "react-icons/fi";
-import { useRouter } from 'next/navigation';
 import { Loading } from '@/app/components/Loading';
 import { MovieGenre } from '@/app/components/MovieGenre';
 import { ProductionCompanies } from '@/app/components/ProductionCompanies';
+import { BackButton } from '@/app/components/BackButton';
 
 function MovieDetails() {
     const params = useParams<{ id: string }>();
-    const router = useRouter();
 
     const [details, setDetails] = useState<DetailsType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -44,9 +42,7 @@ function MovieDetails() {
         
         return (
             <div className='w-11/12 items-start flex justify-center flex-col xl:w-2/4'>
-                <button className='self-start' onClick={() => router.back()}>
-                    <FiArrowLeft color="#FFFFFF" className='w-8 h-8 md:w-12 md:h-12' />
-                </button>
+                <BackButton />
                 <div className='gap-4 mt-4 justify-center items-center w-full md:flex'>
                     <img className='self-center h-72 object-contain w-full sm:w-auto' src={apiImage(details?.poster_path || '')} />
                     <div className='flex-1'>

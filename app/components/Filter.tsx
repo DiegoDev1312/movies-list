@@ -1,15 +1,15 @@
-import { useMovie } from "../contexts/MovieContext";
+import { usePagination } from "../contexts/PaginationContext";
 import { FilterType } from "../types/filterType";
 import { filterOptions } from "../utils/constants";
 
 export function Filter() {
-    const movieUtils = useMovie();
+    const paginationUtils = usePagination();
     
     function changeOption(event: React.ChangeEvent<HTMLSelectElement>) {
         const selectedValue: FilterType = event.target.value as FilterType;
-        movieUtils?.changeSearchLoading(true);
-        movieUtils?.changeFilterType(selectedValue);
-        movieUtils?.changePage(1);
+        paginationUtils?.changeLoading(true);
+        paginationUtils?.changeFilterType(selectedValue);
+        paginationUtils?.changePage(1);
     }
 
     function renderOptions() {
@@ -22,15 +22,15 @@ export function Filter() {
         });
     }
 
-    if (movieUtils?.searchTxt) {
+    if (paginationUtils?.searchTxt) {
         return null;
     }
 
     return (
         <select
-            defaultValue={movieUtils?.filterType}
+            defaultValue={paginationUtils?.filterType}
             name="select"
-            className='self-start w-full h-10 my-4 px-3 mb-7 outline-none rounded-md bg-zinc-600 text-white sm:w-64'
+            className='self-start w-full h-10 my-4 px-3 outline-none rounded-md bg-zinc-600 text-white sm:w-64'
             onChange={changeOption}
         >
             {renderOptions()}
