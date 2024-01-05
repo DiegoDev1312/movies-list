@@ -54,11 +54,11 @@ function MovieDetails() {
                     <MovieGenre genreList={details?.genres} /> 
                 </div>
                 <div className='flex items-start justify-start flex-col w-full'>
-                    {renderInfo('Budget:', `${convertCurrency(details?.budget || 0)}`)}
-                    {renderInfo('Revenue:', `${convertCurrency(details?.revenue || 0)}`)}
-                    {renderInfo('Vote average:', details?.vote_average ? `${details?.vote_average.toFixed(1)}` : '-')}
-                    {renderInfo('Runtime:', details?.runtime ? `${details?.runtime} minutes` : '-')}
-                    {renderInfo('Production Companies:', '')}
+                    {renderInfo('Orçamento:', `${convertCurrency(details?.budget || 0)}`)}
+                    {renderInfo('Bilheteria:', `${convertCurrency(details?.revenue || 0)}`)}
+                    {renderInfo('Média de votos:', details?.vote_average ? `${details?.vote_average.toFixed(1)}` : '-')}
+                    {renderInfo('Duração:', details?.runtime ? `${details?.runtime} minutos` : '-')}
+                    {renderInfo('Produtoras:', '')}
                     <div className='w-full grid gap-3 grid-cols-[repeat(auto-fill,minmax(150px,1fr))]'>
                         <ProductionCompanies productionCompanyList={details?.production_companies} />
                     </div> 

@@ -9,7 +9,7 @@ function FavoriteMovies() {
 
     function renderFavoritesMovies() {
         if (!movieUtils?.favoriteList.length) {
-            return <h1 className="text-white text-2xl animate-bounce">Empty list!</h1>
+            return <h1 className="text-white text-2xl animate-bounce">Lista vázia!</h1>
         }
 
         return <MovieList movieList={movieUtils?.favoriteList} />

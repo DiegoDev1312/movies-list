@@ -1,20 +1,24 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { FilterType } from "../types/filterType";
+import { FilterSort, FilterType } from "../types/filterType";
 import { debounce } from "lodash";
 
 type PaginationContextProps = {
     page: number;
     changePage: (page: number) => void;
     searchLoading: boolean;
-    changeSearchLoading: (isLoading: boolean) => void; 
+    setSearchLoading: (isLoading: boolean) => void; 
     filterType: FilterType,
-    changeFilterType: (filter: FilterType) => void; 
+    setFilterType: (filter: FilterType) => void; 
     searchTxt: string;
     changeSearch: (txt: React.ChangeEvent<HTMLInputElement>) => void;
     isLoading: boolean;
-    changeLoading: (isLoading: boolean) => void;
+    setIsLoading: (isLoading: boolean) => void;
+    sortType: FilterSort;
+    setSortType: (orderType: FilterSort) => void;
+    genreType: number;
+    setGenreType: (genreType: number) => void;
 }
 
 export const PaginationContext = createContext<PaginationContextProps | null>(null);
@@ -22,29 +26,19 @@ export const PaginationContext = createContext<PaginationContextProps | null>(nu
 export function PaginationProvider({ children }: { children: React.ReactNode }) {
     const [page, setPage] = useState(1);
     const [searchLoading, setSearchLoading] = useState(false);
-    const [filterType, setFilterType] = useState<FilterType>('top_rated');
+    const [filterType, setFilterType] = useState<FilterType>('vote_average');
     const [searchTxt, setSearchTxt] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [sortType, setSortType] = useState<FilterSort>('desc');
+    const [genreType, setGenreType] = useState<number>(1);
 
     function changePage(pageNumber: number) {
         setPage(pageNumber);
     }
 
-    function changeFilterType(filterName: FilterType) {
-        setFilterType(filterName);
-    }
-
-    function changeSearchLoading(isLoading: boolean) {
-        setSearchLoading(isLoading);
-    }
-
     function changeSearch(event: React.ChangeEvent<HTMLInputElement>) {
-        changeSearchLoading(true);
+        setSearchLoading(true);
         debounceChangeTxt(event.target.value);
-    }
-
-    function changeLoading(loadingCodition: boolean) {
-        setIsLoading(loadingCodition);
     }
 
     const debounceChangeTxt =
@@ -58,13 +52,17 @@ export function PaginationProvider({ children }: { children: React.ReactNode }) 
             page,
             changePage,
             searchLoading,
-            changeSearchLoading,
+            setSearchLoading,
             filterType,
-            changeFilterType,
+            setFilterType,
             searchTxt,
             changeSearch,
-            changeLoading,
-            isLoading
+            setIsLoading,
+            isLoading,
+            setSortType,
+            sortType,
+            setGenreType,
+            genreType,
         }}>
             {children}
         </PaginationContext.Provider>

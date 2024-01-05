@@ -1,11 +1,36 @@
-import { FilterType } from "../types/filterType";
+import { addMonths, subDays, addDays, lightFormat } from 'date-fns';
+
+import { FilterType, FilterSort } from "../types/filterType";
 import { api } from "../utils/api";
 
-export async function movies(page: number = 1, filterType: FilterType = 'top_rated') {
-    const response = await api.get(`3/movie/${filterType}`, {
+export async function movies(
+    page: number = 1,
+    filterType: FilterType = 'vote_average',
+    filterSort: FilterSort = 'desc',
+    genreId: number = 1,
+) {
+    const voteCountCodition = filterType === 'vote_average' || filterType === 'popularity' ? 300 : null;
+    const sortByCodition = filterType !== 'vote_average' ? 'popularity' : 'vote_average';
+
+    const defaultDateFormat =  'yyyy-MM-dd';
+    const actualDate = lightFormat(new Date(), defaultDateFormat);
+    const decreaseDate = subDays(actualDate, 40);
+    const sumDate = addDays(actualDate, 6);
+
+    const response = await api.get(`3/discover/movie`, {
         params: {
-            page,
             api_key: 'cfea2ebfa1332b46de22d3e69bc6c1df',
+            page,
+            with_genres: genreId !== 1 ? genreId : null,
+            include_adult: false,
+            language: 'pt-BR',
+            include_video: false,
+            sort_by: `${sortByCodition}.${filterSort}`,
+            'vote_average.lte': 10,
+            'vote_count.gte': voteCountCodition,
+            'release_date.gte': filterType === 'now_playing' ? lightFormat(decreaseDate, defaultDateFormat) : null,
+            'release_date.lte': filterType === 'now_playing' ? lightFormat(sumDate, defaultDateFormat)  : null,
+            watch_region: filterType === 'now_playing' ? 'BR' : null,
         }
     });
 
@@ -19,6 +44,7 @@ export async function searchMovie(page: number = 1, searchTxt?: string) {
             page,
             api_key: 'cfea2ebfa1332b46de22d3e69bc6c1df',
             query: searchTxt,
+            language: 'pt-BR',
         }
     });
 
@@ -30,6 +56,7 @@ export async function movieDetails(id: string) {
     const response = await api.get(`3/movie/${id}`, {
         params: {
             api_key: 'cfea2ebfa1332b46de22d3e69bc6c1df',
+            language: 'pt-BR',
         },
     });
 

@@ -1,19 +1,18 @@
 import { usePagination } from "../contexts/PaginationContext";
-import { FilterType } from "../types/filterType";
-import { filterOptions } from "../utils/constants";
+import { FilterType, FilterSort, FilterList } from "../types/filterType";
 
-export function Filter() {
+type FilterProps = {
+    filterList: Array<FilterList>;
+    changeOption: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    defaultValue: FilterType | FilterSort | number;
+    filterTitle: string;
+}
+
+export function Filter({ filterList, changeOption, defaultValue, filterTitle }: FilterProps) {
     const paginationUtils = usePagination();
-    
-    function changeOption(event: React.ChangeEvent<HTMLSelectElement>) {
-        const selectedValue: FilterType = event.target.value as FilterType;
-        paginationUtils?.changeLoading(true);
-        paginationUtils?.changeFilterType(selectedValue);
-        paginationUtils?.changePage(1);
-    }
 
     function renderOptions() {
-        return filterOptions.map((option) => {
+        return filterList.map((option) => {
             return (
                 <option value={option.type} key={option.id}>
                     {option.name}
@@ -27,13 +26,16 @@ export function Filter() {
     }
 
     return (
-        <select
-            defaultValue={paginationUtils?.filterType}
-            name="select"
-            className='self-start w-full h-10 my-4 px-3 outline-none rounded-md bg-zinc-600 text-white sm:w-64'
-            onChange={changeOption}
-        >
-            {renderOptions()}
-        </select>
+        <div className="flex flex-col mt-3 w-full sm:w-auto" >
+            <h1 className="text-white mb-1">{filterTitle}</h1>
+            <select
+                defaultValue={defaultValue}
+                name="select"
+                className='self-start w-full px-3 h-10 my-4outline-none rounded-md bg-zinc-600 text-white sm:w-64'
+                onChange={changeOption}
+            >
+                {renderOptions()}
+            </select>
+        </div>
     );
 }
