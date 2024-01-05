@@ -10,12 +10,14 @@ export async function movies(
     genreId: number = 1,
 ) {
     const voteCountCodition = filterType === 'vote_average' || filterType === 'popularity' ? 300 : null;
-    const sortByCodition = filterType !== 'vote_average' ? 'popularity' : 'vote_average';
+    const sortByCodition = filterType === 'now_playing' || filterType === 'popularity' ? 'popularity' : 'vote_average';
 
     const defaultDateFormat =  'yyyy-MM-dd';
     const actualDate = lightFormat(new Date(), defaultDateFormat);
-    const decreaseDate = subDays(actualDate, 40);
-    const sumDate = addDays(actualDate, 6);
+    const releasedateGte = filterType === 'now_playing'
+        ? subDays(actualDate, 40) : addDays(actualDate, 1);
+    const releasedateLte = filterType === 'now_playing'
+        ? addDays(actualDate, 6) : addDays(actualDate, 40);
 
     const response = await api.get(`3/discover/movie`, {
         params: {
@@ -28,8 +30,10 @@ export async function movies(
             sort_by: `${sortByCodition}.${filterSort}`,
             'vote_average.lte': 10,
             'vote_count.gte': voteCountCodition,
-            'release_date.gte': filterType === 'now_playing' ? lightFormat(decreaseDate, defaultDateFormat) : null,
-            'release_date.lte': filterType === 'now_playing' ? lightFormat(sumDate, defaultDateFormat)  : null,
+            'release_date.gte': filterType === 'now_playing' || filterType === 'upcoming'
+                ? lightFormat(releasedateGte, defaultDateFormat) : null,
+            'release_date.lte': filterType === 'now_playing' || filterType === 'upcoming'
+                ? lightFormat(releasedateLte, defaultDateFormat)  : null,
             watch_region: filterType === 'now_playing' ? 'BR' : null,
         }
     });

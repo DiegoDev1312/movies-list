@@ -6,8 +6,8 @@ export const filterOptions = [
 ];
 
 export const sortBy = [
-    { id: 1, type: 'desc', name: 'Melhores avaliado' },
-    { id: 2, type: 'asc', name: 'Piores avaliados' },
+    { id: 1, type: 'desc', name: 'Mais populares' },
+    { id: 2, type: 'asc', name: 'Menos populares' },
 ];
 
 export const genreOptions = [

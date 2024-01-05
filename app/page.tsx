@@ -95,7 +95,7 @@ export default function Home() {
   function renderList() {
     const defaultOrderValue = paginationUtils?.filterType ?  paginationUtils?.filterType : 'vote_average';
     const defaultSortValue = paginationUtils?.sortType ?  paginationUtils?.sortType : 'desc';
-    const defaultGenreValue = paginationUtils?.genreType ?  paginationUtils?.sortType : 1;
+    const defaultGenreValue = paginationUtils?.genreType ?  paginationUtils?.genreType : 1;
 
     return (
       <>
