@@ -68,9 +68,9 @@ function MovieDetails() {
     }
 
     return (
-        <div className='bg-zinc-900 flex items-center min-h-screen justify-center flex-col py-2'>
+        <main className='flex items-center min-h-screen justify-center flex-col py-2 w-full'>
             {renderDetails()}
-        </div>
+        </main>
     );
 }
 

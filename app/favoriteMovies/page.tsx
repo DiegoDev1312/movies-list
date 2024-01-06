@@ -16,10 +16,12 @@ function FavoriteMovies() {
     }
 
     return (
-        <div className="bg-zinc-900 flex min-h-screen flex-col items-center px-2 transition-all ease duration-150 py-3 sm:px-8">
-            <BackButton />
-            {renderFavoritesMovies()}
-        </div>
+        <main className="bg-zinc-900 flex items-center justify-center transition-all ease duration-150">
+            <div className="flex min-h-screen flex-col items-center px-2 w-full sm:w-5/6">
+                <BackButton />
+                {renderFavoritesMovies()}
+            </div>
+        </main>
     );
 }
 

@@ -127,9 +127,11 @@ export default function Home() {
   }
 
   return (
-    <main className="bg-zinc-900 flex min-h-screen flex-col items-center px-2 transition-all ease duration-150 sm:px-8">
-      <Hearder />
-      {renderList()}
+    <main className="bg-zinc-900 flex items-center justify-center transition-all ease duration-150">
+      <div className="flex min-h-screen flex-col items-center px-2 w-full sm:w-5/6">
+        <Hearder />
+        {renderList()}
+      </div>
     </main>
   )
 }
