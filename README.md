@@ -5,8 +5,8 @@
 <ul>
     <li>Favoritar um filme</li>
     <li>Listagem de filmes baseado em filtros</li>
-    <li>Pesquisar filme por nome</li>
-    <li>Detalhes do filme</li>
+    <li>Pesquisar filmes por nome</li>
+    <li>Detalhes do filme selecionado</li>
 </ul>
 
 <h1>Tecnologias Utilizadas</h1>
