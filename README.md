@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>MoviesList</h1>
+<p>Projeto feito com base da API pública do The Movie Database onde listo filmes baseados na categória selecionada pelo usuário.</p>
 
-## Getting Started
+<h1>Recursos principais</h1>
+<ul>
+    <li>Favoritar um filme</li>
+    <li>Listagem de filmes baseado em filtros</li>
+    <li>Pesquisar filme por nome</li>
+    <li>Detalhes do filme</li>
+</ul>
 
-First, run the development server:
+<h1>Tecnologias Utilizadas</h1>
+<ul>
+    <li>ReactJS</li>
+    <li>NextJS</li>
+    <li>Axios</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>TypeScript</li>
+    <li>JavaScript</li>
+    <li>Tailwind</li>
+</ul>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h1>Começando</h1>
+<p>Para começar com este projeto, siga estas etapas:</p>
+<ul>
+    <li>Clone o projeto: <a href="https://github.com/tiagopierredev/todo-app.git">https://github.com/tiagopierredev/todo-app.git</a></li>
+    <li>Instale as dependências utilizando npm ou yarn</li>
+    <li>Execute o site </li>
+</ul>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
