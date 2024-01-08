@@ -26,7 +26,8 @@ export function Pagination({ movie }: PaginationProps) {
                 pageCount={movie.total_pages > 500 ? 500 : movie.total_pages}
                 previousLabel="Anterior"
                 className="flex text-white gap-2 flex-wrap items-center"
-                pageClassName='flex items-center justify-center hover:scale-110 transition-all ease duration-100 p-3 border border-zinc-500 rounded-md'
+                pageLinkClassName='p-3'
+                pageClassName='flex items-center justify-center hover:scale-110 transition-all ease duration-100 border border-zinc-500 rounded-md'
                 renderOnZeroPageCount={null}
                 activeClassName='flex items-center justify-center scale-110 border border-zinc-500 rounded-md'
             />
