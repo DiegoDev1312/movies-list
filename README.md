@@ -1,8 +1,6 @@
 <h1>MoviesList</h1>
 <p>Projeto feito com base na API pública do The Movie Database onde listo filmes baseados na categória filtrada pelo usuário.</p>
 
-
-
 <h1>Recursos principais</h1>
 <ul>
     <li>Favoritar um filme</li>
