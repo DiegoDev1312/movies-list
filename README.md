@@ -24,7 +24,7 @@
 <h1>Começando</h1>
 <p>Para começar com este projeto, siga estas etapas:</p>
 <ul>
-    <li>Clone o projeto: <a href="https://github.com/tiagopierredev/todo-app.git">https://github.com/tiagopierredev/todo-app.git</a></li>
+    <li>Clone o projeto: <a href="https://github.com/DiegoDev1312/movies-list.git">https://github.com/DiegoDev1312/movies-list.git</a></li>
     <li>Instale as dependências utilizando npm ou yarn</li>
     <li>Execute o site </li>
 </ul>
